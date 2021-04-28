@@ -24,11 +24,13 @@ import java.util.Set;
 import se.sics.kompics.Init;
 import se.sics.kompics.address.Address;
 
+
+
 public class BasicBroadcastInit extends Init<BasicBroadcast> {
 
 	private final Address selfAddress;
 	private final Set<Address> allAddresses;
-	
+
 	public BasicBroadcastInit(Address selfAddress, Set<Address> allAddresses) {
 		this.selfAddress = selfAddress;
 		this.allAddresses = allAddresses;
@@ -37,7 +39,7 @@ public class BasicBroadcastInit extends Init<BasicBroadcast> {
 	public Address getSelfAddress() {
 		return selfAddress;
 	}
-	
+
 	public Set<Address> getAllAddresses() {
 		return allAddresses;
 	}

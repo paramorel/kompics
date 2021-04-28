@@ -22,14 +22,59 @@ package se.kth.ict.id2203.components.beb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import se.sics.kompics.ComponentDefinition;
+import se.kth.ict.id2203.ports.beb.BebBroadcast;
+import se.kth.ict.id2203.ports.beb.BestEffortBroadcast;
+import se.kth.ict.id2203.ports.pp2p.PerfectPointToPointLink;
+import se.kth.ict.id2203.ports.pp2p.Pp2pSend;
+import se.sics.kompics.*;
+import se.sics.kompics.address.Address;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class BasicBroadcast extends ComponentDefinition {
 
-	private static final Logger logger = LoggerFactory.getLogger(BasicBroadcast.class);
+		private static final Logger logger = LoggerFactory.getLogger(BasicBroadcast.class);
 
-	public BasicBroadcast(BasicBroadcastInit init) {
-		
+		private Positive<PerfectPointToPointLink> pp2p = requires(PerfectPointToPointLink.class);
+		private Negative<BestEffortBroadcast> beb = provides(BestEffortBroadcast.class);
+
+		private final Address self;
+		private final Set<Address> nodes;
+
+		public BasicBroadcast(BasicBroadcastInit init) {
+			this.self = init.getSelfAddress();
+			this.nodes = new HashSet<Address>(init.getAllAddresses());
+
+			subscribe(startHandler, control);
+			subscribe(bcastHandler, beb);
+			subscribe(deliverHandler, pp2p);
+		}
+
+		private Handler<Start> startHandler = new Handler<Start>() {
+
+			@Override
+			public void handle(Start event) {
+				logger.info("Component BestEffortBroadcast created at node {}", self);
+			}
+		};
+
+		private Handler<BebBroadcast> bcastHandler = new Handler<BebBroadcast>() {
+			@Override
+			public void handle(BebBroadcast event) {
+				for (Address node : nodes) {
+					BebDataMessage msg = new BebDataMessage(node, event.getDeliverEvent());
+					//logger.info("bcast to {}!", node.getId());
+					trigger(new Pp2pSend(node, msg), pp2p);
+				}
+			}
+		};
+
+		private Handler<BebDataMessage> deliverHandler = new Handler<BebDataMessage>() {
+			@Override
+			public void handle(BebDataMessage event) {
+				//logger.info("Node {} received delivery event", self);
+				trigger(event.getData(), beb);
+			}
+		};
 	}
-
-}
