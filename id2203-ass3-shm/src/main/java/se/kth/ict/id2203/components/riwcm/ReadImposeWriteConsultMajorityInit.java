@@ -14,7 +14,7 @@ public class ReadImposeWriteConsultMajorityInit extends Init<ReadImposeWriteCons
 		this.selfAddress = selfAddress;
 		this.allAddresses = allAddresses;
 	}
-	
+
 	public final Address getSelfAddress() {
 		return selfAddress;
 	}

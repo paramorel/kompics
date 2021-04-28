@@ -35,13 +35,13 @@ public final class Executor {
 			}
 		};
 
-		Scenario scenario = new Scenario(Main.class) {
-			{
-				command(1, "S10");
-				command(2, "S10");
-				command(3, "S10");
-			}
-		};
+//		Scenario scenario = new Scenario(Main.class) {
+//			{
+//				command(1, "S10");
+//				command(2, "S10");
+//				command(3, "S10");
+//			}
+//		};
 
 		// Non-overlapping (sequential) operations.
 //		Scenario scenario = new Scenario(Main.class) {
@@ -53,13 +53,13 @@ public final class Executor {
 //		};
 
 		// Concurrent operations.
-//		Scenario scenario = new Scenario(Main.class) {
-//			{
-//				command(1, "W1:R:S1000:W12:R");
-//				command(2, "W2:R:S3000:R");
-//				command(3, "S5500:W3:R:S3000:R");
-//			}
-//		};
+		Scenario scenario = new Scenario(Main.class) {
+			{
+				command(1, "W1:R:S1000:W12:R");
+				command(2, "W2:R:S3000:R");
+				command(3, "S5500:W3:R:S3000:R");
+			}
+		};
 
 		// One process crashes and the other processes keep running.
 //		Scenario scenario = new Scenario(Main.class) {
