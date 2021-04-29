@@ -55,7 +55,7 @@ public final class Application extends ComponentDefinition {
 	private Positive<PerfectPointToPointLink> pp2p = requires(PerfectPointToPointLink.class);
 	private Positive<AtomicRegister> ar = requires(AtomicRegister.class);
 
-	private Set<Address> neighborSet;
+	private Set<Address>  neighborSet;
 	private Address self;
 
 	private List<String> commands;

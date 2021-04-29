@@ -55,7 +55,7 @@ public final class Application extends ComponentDefinition {
 	private Address self;
 	private Set<Address> neighbors;
 
-	private ArrayList<String> commands;
+	private ArrayList<String>  commands;
 	private boolean blocking;
 
 	public Application(ApplicationInit event) {

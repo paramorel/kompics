@@ -63,7 +63,7 @@ public final class Application extends ComponentDefinition {
 		subscribe(handleContinue, timer);
 		subscribe(handleConsoleInput, console);
 		subscribe(handlePp2pMessage, pp2p);
-		subscribe(handleFlp2pMessage, flp2p);
+		subscribe(handleFlp2pMessage,  flp2p);
 
 		self = event.getSelfAddress();
 		neighbors = new TreeSet<Address>(event.getAllAddresses());

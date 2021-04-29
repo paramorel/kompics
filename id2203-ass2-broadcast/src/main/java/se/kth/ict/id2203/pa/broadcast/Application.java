@@ -58,7 +58,7 @@ public final class Application extends ComponentDefinition {
 	private Positive<ReliableBroadcast> rb = requires(ReliableBroadcast.class);
 	private Positive<CausalOrderReliableBroadcast> crb = requires(CausalOrderReliableBroadcast.class);
 
-	private Set<Address> neighborSet;
+	private Set<Address>  neighborSet;
 	private Address self;
 
 	private List<String> commands;
